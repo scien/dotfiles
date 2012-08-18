@@ -1,0 +1,21 @@
+#!/usr/bin/python
+
+import sys
+
+num_branches = 0
+for l in sys.stdin:
+    ref = l.split()[2]
+    branch = ref.rsplit("/")[-1]
+    num_branches += 1
+    if num_branches > 1:
+        print
+        print "wow there, cowboy! only one branch at a time, please"
+        print
+        sys.exit(1)
+
+if branch != "master":
+    print
+    print "um, no.  only the master branch goes to prod"
+    print
+    sys.exit(2)
+

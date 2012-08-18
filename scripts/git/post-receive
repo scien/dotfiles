@@ -1,0 +1,52 @@
+#!/bin/sh
+
+ORIG_DIR=`pwd`
+BASE=/u/apps/$(basename $ORIG_DIR)
+echo "basedir: $BASE"
+CURRENT=$BASE/current
+PREVIOUS=$BASE/previous
+
+echo
+
+read oldrev newrev ref
+RELEASE=$BASE/releases/$newrev
+mkdir -p "$RELEASE"
+git archive master | tar -x -C "$RELEASE"
+echo "YOU ARE DEPLOYING rev $newrev"
+echo "Updating links..."
+rm -f $PREVIOUS
+mv $CURRENT $PREVIOUS
+ln -s $RELEASE $CURRENT
+
+echo "Restarting Services..."
+
+cd "$CURRENT"
+npm restart
+
+if [ $? -eq 0 ]
+then
+	echo "Looks good!  Maybe run some tests?"
+	exit 0
+fi
+
+echo "CRAP! npm restart looks like it failed :("
+echo "Rolling back........."
+
+cd $ORIG_DIR
+git reset $oldrev --soft
+
+cd $BASE
+
+rm -f $CURRENT
+mv $PREVIOUS $CURRENT
+
+cd $CURRENT
+./run.sh
+
+if [ $? -eq 0 ]
+then
+        echo "Phew!  I think we're safe.  Test some more before you try again, k?"
+        exit 0
+fi
+
+echo "MAYDAY!  Tried to roll back and failed.  You'd best fix things on your own -- I can't :("
