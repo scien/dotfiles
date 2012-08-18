@@ -1,0 +1,38 @@
+# ssh shortcuts
+alias yeti='ssh bryant@yeti'
+alias tiki='ssh bryant@tiki'
+alias snowflake='ssh bryant@snowflake'
+alias dragonfly='ssh root@dragonfly'
+alias spark='ssh deploy@spark'
+
+# git shortcuts
+alias g="git"
+alias pull='git stash ; git pull --rebase origin master ; git stash pop'
+alias push='git push origin master'
+alias deploy='git remote | xargs -L 1 git push'
+alias commit='git commit -am'
+alias status='git status'
+
+# Dir navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+
+# Navigate to root of git repository
+alias ..g='git rev-parse && cd "$(git rev-parse --show-cdup)"'
+
+# Utilities
+alias a="ack -ia"
+alias d="du -h -d=1"
+alias df="df -h"
+alias grep='GREP_COLOR="1;37;45" LANG=C grep --color=auto'
+alias h="history"
+alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+alias ip="curl -s http://checkip.dyndns.com/ | sed 's/[^0-9\.]//g'"
+alias localip="ipconfig getifaddr en1"
+
+# List
+alias la="ls -a"
+alias lh="ls -h"
+

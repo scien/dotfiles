@@ -1,0 +1,36 @@
+#!/usr/bin/bash
+
+# Setup ffmpeg for compiling mp3s to he-aac+v2
+
+mkdir ~/tmp
+cd ~/tmp
+
+# install libaacplus
+wget http://217.20.164.161/~tipok/aacplus/libaacplus-2.0.2.tar.gz
+tar -xvzf libaacplus-2.0.2.tar.gz
+cd libaccplus-2.0.2
+./autogen.sh
+./configure
+make
+sudo make install
+
+# install libmp3lame >= 3.99
+# Fedora 16 (http://packages.atrpms.net/dist/f16/lame/)
+rpm -i http://dl.atrpms.net/all/lame-devel-3.99.3-23.fc16.x86_64.rpm
+rpm -i http://dl.atrpms.net/all/libmp3lame0-3.99.3-23.fc16.x86_64.rpm
+# Red Hat Enterprise 6
+rpm -i http://dl.atrpms.net/all/lame-devel-3.99.3-23.el6.x86_64.rpm
+rpm -i http://dl.atrpms.net/all/libmp3lame0-3.99.3-23.el6.x86_64.rpm
+echo "/usr/local/lib" >> /etc/ld.so.conf
+ldconfig -v
+
+# install other dependencies
+yum install -y yasm libtool libogg-devel libvorbis-devel libncurses-devel faac-devel
+yum install -y m4 gcc gcc-c++ glibc path dbus-devel lua-devel
+
+# install ffmpeg
+git clone git://source.ffmpeg.org/ffmpeg.git
+cd ffmpeg
+./configure  --enable-libmp3lame --enable-libfaac --enable-shared --enable-nonfree
+make
+make install
