@@ -16,26 +16,12 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-# ssh shortcuts
-alias yeti='ssh bryant@yeti'
-alias tiki='ssh bryant@tiki'
-alias snowflake='ssh bryant@snowflake'
-alias dragonfly='ssh root@dragonfly'
-alias spark='ssh deploy@spark'
-
-
-# git shortcuts
-alias pull='git stash ; git pull --rebase origin master ; git stash pop'
-alias push='git push origin master'
-alias deploy='git remote | xargs -L 1 git push'
-alias commit='git commit -am'
-alias status='git status'
-
-
-# User specific aliases and functions
-export PATH=$HOME/local/bin:$PATH
+# Exports
 export NODE_ENV=development
 export PATH=$HOME/local/bin:$PATH
+
+# Don't let Fedora waste my time on a typo
+unset command_not_found_handle
 
 # Prompt
 [[ -f "$HOME/.bash_prompt" ]] && source "$HOME/.bash_prompt"
