@@ -1,126 +1,103 @@
-" plugins
-" stylus: http://www.vim.org/scripts/script.php?script_id=3513
-" autocomplete: http://www.vim.org/scripts/script.php?script_id=1879
-"
-"
-"
-"
+set encoding=utf-8
+set ruler
 
-set nocompatible
+"set number
+syntax enable
+filetype indent on
+filetype plugin on
 
-" change mapleader
-let mapleader=","
+" when searching, search as I type, highlight matches, and only care about case
+" if I have caps in my search phrase.
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 
-" edit/reload vimrc
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" obviously
+set ts=2 "tabstop
+set sw=2 "shiftwidth
+set bs=2
+set expandtab
 
-" local dirs
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
-set undodir=~/.vim/undo
+autocmd FileType html
+ \ setlocal shiftwidth=2 |
+ \ setlocal tabstop=2
+autocmd FileType coffee
+ \ setlocal shiftwidth=2 |
+ \ setlocal tabstop=2
+autocmd FileType js
+ \ setlocal shiftwidth=2 |
+ \ setlocal tabstop=2
+autocmd FileType styl
+ \ setlocal shiftwidth=2 |
+ \ setlocal tabstop=2
 
-" colorscheme
+" desert is a pretty good color scheme
 colorscheme desert
 
-set autoindent      " copy indent from last line when starting new line
-set backspace=indent,eol,start " make backspace delete more
-"set cursorline     " highlight cursor line
-set encoding=utf-8 nobomb " BOM often causes trouble
-set esckeys         " allow cursor keys in insert mode
-set expandtab       " expand tabs to spaces
-set gdefault        " by default, add g flad to search/replace
-set hidden          " remember undo history and marks when switching buffers
-set history=1000    "increase history to 1000
-set hlsearch        " highlight searches
-set ignorecase      " ignore case of searches
-set incsearch       " highlight dynamically as pattern is typed
-"set mouse=a         " enable mouse (only use for scrolling)
-set noerrorbells    " disable error bells
-set nojoinspaces    " only insert single space after a ., ?, and !
-set nostartofline   " don't reset cursor to start of line when moving around
-set nowrap          " don't wrap lines
-"set number         " enable line numbers
-set report=0        " show all changes
-set ruler           " show the cursor position
-set scrolloff=8     " start scrolling 8 lines before the border
-set shiftwidth=2    " # spaces for indenting
-set shortmess=atI   " don't mess with intro message
-set showcmd
-set showmatch       " show matching parantheses
-set showmode        " show the current mode
-set showtabline=2   " always show tab bar
-set sidescrolloff=3 " scroll before vertical border
-set smartcase       " ignore 'ignorecase' if search has uppercase letters
-set smarttab        " smart tab/backspaces   
-set softtabstop=2   " tab results in 2 spaces
-set splitbelow      " new window goes below
-set splitright      " new window goes right
-set title           " show filename in window title bar
-set undolevels=1000 " lots of undo
-set visualbell      " visual bell instead of audio
-set wildmenu        " tab in command mode shows options
-set wildmode=list:longest
-set winminheight=0  " allows windows to be reduced to a single line
-set wrapscan        " searches can wrap around the end of the file
+" tab navigating
+map <F5> gT
+map <F6> gt
 
+map <Esc>1 1gt
+map <Esc>2 2gt
+map <Esc>3 3gt
+map <Esc>4 4gt
+map <Esc>5 5gt
+map <Esc>6 6gt
+map <Esc>7 7gt
+map <Esc>8 8gt
+map <Esc>9 9gt
+map <Esc>0 10gt
 
-" forgot to sudo?
-cmap w!! w !sudo tee % > /dev/null
+imap <F5> <Esc>gTi
+imap <F6> <Esc>gti
 
-" 
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+" i'm compulsive about saving
+map <C-W> :w<CR>
+imap <C-W> <C-O>:w<CR>
 
-nmap <silent> ,/ :nohlsearch<CR>
+" i don't really know why i have this or if it's necessary
+autocmd BufRead *.py set cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd BufRead *.cgi set cinwords=if,elif,else,for,while,try,except,finally,def,class
 
-" scroll viewport faster
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
-
-" better mark jumping
-nnoremap ' `
-nnoremap ` '
-
-" indent/unindent block
-nnoremap <leader>] >i{<CR>
-nnoremap <leader>[ <i{<CR>
-
-" less shift key
-nnoremap ; :
-
-" Paste toggle (,p)
-set pastetoggle=<leader>p
-map <leader>p :set invpaste paste?<CR>
-
-
-command Q q         " remap Q to q
-command W w         " remap W to w
-command Wq wq       " remap Wq to wq
-command WQ wq       " remap WQ to wq
-
-" Hard to type things
-imap >> →
-imap << ←
-imap ^^ ↑
-imap VV ↓
-imap aa λ
-
-" filetype specific tabbing
-filetype plugin indent on
-syntax on
-autocmd FileType c,cpp,h set ts=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType sh set ts=4 shiftwidth=2 expandtab
-autocmd FileType python,ruby set ts=4 shiftwidth=4 expandtab
-autocmd FileType coffee,javascript,styl set ts=2 shiftwidth=2 expandtab
+" cson files are coffee
+:au BufNewFile,BufRead *.cson set filetype=coffee
 
 " highlight everything over 80 chars in red
 :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 
+" F2 makes pasting the clipboard not fuck up the indentation, F2 again turns it off.
+" useful for pasting large blocks.
+nnoremap <F2> :set invpaste paste?<CR>
+imap <F2> <C-O><F2>
+set pastetoggle=<F2>
+
+" Up/down go visually instead of by physical lines (useful for long wraps)
+" Interactive ones need to check whether we're in the autocomplete popup (which
+" breaks if we remap to gk/gj)
+map <up> gk
+inoremap <up> <C-R>=pumvisible() ? "\<lt>up>" : "\<lt>C-o>gk"<Enter>
+map <down> gj
+inoremap <down> <C-R>=pumvisible() ? "\<lt>down>" : "\<lt>C-o>gj"<Enter>
+
 " Map normal mode Enter to add a new line.
+" Useful for adding spacing to a file while navigating.
 nmap <Enter> o<Esc>
-map <leader><Enter> o<ESC>
+
+" vim -p *.py will open 100 files in tabs
+" it's not really useful to have that many tabs, but it's better than having
+" most of them not open in tabs at all
+set tabpagemax=100
 
 
+if has("autocmd")
+aug vimrc
+au!
+" restore cursor position when the file has been read
+au BufReadPost *
+\ if line("'\"") > 0 && line("'\"") <= line("$") |
+\ exe "norm g`\"" |
+\ endif
+aug ENG
+endif
