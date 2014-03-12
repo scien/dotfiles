@@ -1,0 +1,33 @@
+[user]
+  name = Bryant Williams
+  email = b.n.williams@gmail.com
+[core]
+  editor = vim
+  whitespace = trailing-space,space-before-tab
+  excludesfile = ~/.gitignore
+[apply]
+  whitespace = fix
+[push]
+  default = simple
+[color]
+  ui = always
+[color "branch"]
+  current = yellow bold
+  local = green bold
+  remote = cyan bold
+[color "diff"]
+  plain = normal
+  meta = yellow dim
+  frag = magenta dim
+  old = red bold
+  new = green dim
+  commit = blue dim
+  whitespace = red reverse
+[color "status"]
+  header = normal
+  added = green dim
+  changed = cyan blink
+  updated = green blink
+  untracked = yellow
+  branch = magenta blink
+  nobranch = normal
