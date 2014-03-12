@@ -1,0 +1,75 @@
+# environment variable
+export PYTHONPATH=$PYTHONPATH
+
+# aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias df='df -h'
+alias la='ls -A'
+alias ll='ls -l'
+alias gmail='/Applications/Firefox.app/Contents/MacOS/firefox http://www.gmail.com'
+alias mail='/Applications/Firefox.app/Contents/MacOS/firefox http://mail.lessthan3.com'
+
+# Git related
+alias gs='git status'
+alias gc='git commit -m'
+alias ga='git add'
+alias gd='git diff'
+alias gb='git branch'
+alias gl='git log'
+alias gsb='git show-branch'
+alias gco='git checkout'
+alias gg='git grep'
+alias gk='gitk --all'
+alias gr='git rebase'
+alias gri='git rebase --interactive'
+alias gcp='git cherry-pick'
+alias grm='git rm'
+
+extract () {
+   if [ -f $1 ] ; then
+       case $1 in
+           *.tar.bz2)   tar xvjf $1    ;;
+           *.tar.gz)    tar xvzf $1    ;;
+           *.bz2)       bunzip2 $1     ;;
+           *.rar)       unrar x $1       ;;
+           *.gz)        gunzip $1      ;;
+           *.tar)       tar xvf $1     ;;
+           *.tbz2)      tar xvjf $1    ;;
+           *.tgz)       tar xvzf $1    ;;
+           *.zip)       unzip $1       ;;
+           *.Z)         uncompress $1  ;;
+           *.7z)        7z x $1        ;;
+           *)           echo "don't know how to extract '$1'..." ;;
+       esac
+   else
+       echo "'$1' is not a valid file!"
+   fi
+}
+
+# colored man pages
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'                           
+export LESS_TERMCAP_so=$'\E[01;44;33m'                                 
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+# bash prompt
+RESET="\[\017\]"
+NORMAL="\[\033[0m\]"
+RED="\[\033[31;1m\]"
+GREEN="\[\033[32;1m\]"
+YELLOW="\[\033[33;1m\]"
+BLUE="\[\033[34;1m\]"
+PURPLE="\[\033[35;1m\]"
+LIGHTBLUE="\[\033[36;1m\]"
+WHITE="\[\033[37;1m\]"
+
+# Throw it all together 
+PS1="${RESET}${GREEN}\u@\h:\w> ${NORMAL}"
+
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+export TERM=xterm-color
