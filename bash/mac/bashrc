@@ -6,10 +6,11 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias df='df -h'
+alias gmail='/Applications/Firefox.app/Contents/MacOS/firefox http://www.gmail.com'
 alias la='ls -A'
 alias ll='ls -l'
-alias gmail='/Applications/Firefox.app/Contents/MacOS/firefox http://www.gmail.com'
 alias mail='/Applications/Firefox.app/Contents/MacOS/firefox http://mail.maestro.io'
+alias v='vim'
 
 # dev servers
 alias cm='coffee main.coffee'
