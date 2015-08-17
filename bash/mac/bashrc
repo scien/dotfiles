@@ -9,7 +9,11 @@ alias df='df -h'
 alias la='ls -A'
 alias ll='ls -l'
 alias gmail='/Applications/Firefox.app/Contents/MacOS/firefox http://www.gmail.com'
-alias mail='/Applications/Firefox.app/Contents/MacOS/firefox http://mail.lessthan3.com'
+alias mail='/Applications/Firefox.app/Contents/MacOS/firefox http://mail.maestro.io'
+
+# dev servers
+alias cm='coffee main.coffee'
+alias dr='dobi run'
 
 # Git related
 alias gs='git status'
