@@ -34,6 +34,10 @@ alias gri='git rebase --interactive'
 alias grm='git rm'
 alias gs='git status'
 alias gsb='git show-branch'
+alias pull='git pull'
+
+alias deploy='git remote | xargs -L1 git push'
+
 
 extract () {
    if [ -f $1 ] ; then
