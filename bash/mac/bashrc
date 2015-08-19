@@ -17,6 +17,7 @@ alias cm='coffee main.coffee'
 alias dr='dobi run'
 
 # Git related
+alias deploy='git remote | xargs -L1 git push'
 alias ga='git add .'
 alias gb='git branch'
 alias gc='git commit -m'
@@ -35,8 +36,6 @@ alias grm='git rm'
 alias gs='git status'
 alias gsb='git show-branch'
 alias pull='git pull'
-
-alias deploy='git remote | xargs -L1 git push'
 
 
 extract () {
