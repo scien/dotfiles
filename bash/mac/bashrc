@@ -13,6 +13,7 @@ alias mail='/Applications/Firefox.app/Contents/MacOS/firefox http://mail.maestro
 alias v='vim'
 
 # dev servers
+alias cb='dobi cache:bust'
 alias cm='coffee main.coffee'
 alias dr='dobi run'
 
@@ -26,6 +27,7 @@ alias gcom='git checkout master'
 alias gcp='git cherry-pick'
 alias gd='git diff'
 alias gdh='git diff head'
+alias gf='git fetch'
 alias gg='git grep'
 alias gk='gitk --all'
 alias gl='git log'
